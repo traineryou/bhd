@@ -33,7 +33,7 @@ def _get_gpu_name():
 def _check_gpu_available():
   gpu_name = _get_gpu_name()
   if gpu_name == None:
-    print("Bu makine GPU ile çalışmıyor. Eğer GPU ihtiyacınız varsa Runtime menüsünden Change Runtime kısmından GPU seçiniz")
+    print("Bu makine GPU ile çalışmıyor.GPU için Runtime / Change Runtime kısmından GPU seçiniz")
   elif gpu_name == "Tesla K80":
     print("Uyarı! Bu makineye atanmış olan GPU Tesla K80.")
     print("Makineyi resetleyerek daha güçlü bir GPU almayı deneyebilirsiniz.")
