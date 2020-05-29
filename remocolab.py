@@ -6,9 +6,9 @@ import IPython.utils.io
 def _installPkg(cache, name):
   pkg = cache[name]
   if pkg.is_installed:
-    print(f"{name} is already installed")
+    print(f"{name} zaten yüklenmiş")
   else:
-    print(f"Install {name}")
+    print(f"Yükleniyor {name}")
     pkg.mark_install()
 
 def _installPkgs(cache, *args):
@@ -21,7 +21,7 @@ def _download(url, path):
       with open(path, 'wb') as outfile:
         shutil.copyfileobj(response, outfile)
   except:
-    print("Failed to download ", url)
+    print("İndirme başarısız oldu ", url)
     raise
 
 def _get_gpu_name():
@@ -33,14 +33,14 @@ def _get_gpu_name():
 def _check_gpu_available():
   gpu_name = _get_gpu_name()
   if gpu_name == None:
-    print("This is not a runtime with GPU")
+    print("Bu makine GPU ile çalışmıyor. Eğer GPU ihtiyacınız varsa Runtime menüsünden Change Runtime kısmından GPU seçiniz")
   elif gpu_name == "Tesla K80":
-    print("Warning! GPU of your assigned virtual machine is Tesla K80.")
-    print("You might get better GPU by reseting the runtime.")
+    print("Uyarı! Bu makineye atanmış olan GPU Tesla K80.")
+    print("Makineyi resetleyerek daha güçlü bir GPU almayı deneyebilirsiniz.")
   else:
     return True
 
-  return IPython.utils.io.ask_yes_no("Do you want to continue? [y/n]")
+  return IPython.utils.io.ask_yes_no("Devam etmek istiyor musunuz? [y/n]")
 
 def _setupSSHDImpl(ngrok_token, ngrok_region):
   #apt-get update
@@ -68,7 +68,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
     f.write("\n\nClientAliveInterval 120\n")
 
   msg = ""
-  msg += "ECDSA key fingerprint of host:\n"
+  msg += "Sunucunun ECDSA anahtar parmakizi:\n"
   ret = subprocess.run(
                 ["ssh-keygen", "-lvf", "/etc/ssh/ssh_host_ecdsa_key.pub"],
                 stdout = subprocess.PIPE,
@@ -82,10 +82,10 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
 
   root_password = secrets.token_urlsafe()
   user_password = secrets.token_urlsafe()
-  user_name = "colab"
+  user_name = "bitturk"
   msg += "✂️"*24 + "\n"
-  msg += f"root password: {root_password}\n"
-  msg += f"{user_name} password: {user_password}\n"
+  msg += f"root şifresi: {root_password}\n"
+  msg += f"{user_name} şifresi: {user_password}\n"
   msg += "✂️"*24 + "\n"
   subprocess.run(["useradd", "-s", "/bin/bash", "-m", user_name])
   subprocess.run(["adduser", user_name, "sudo"], check = True)
@@ -110,12 +110,12 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
 
   ssh_common_options =  "-o UserKnownHostsFile=/dev/null -o VisualHostKey=yes"
   msg += "---\n"
-  msg += "Command to connect to the ssh server:\n"
+  msg += "Sadece SSH server olarak bağlanmak için gerekli komut :\n"
   msg += "✂️"*24 + "\n"
   msg += f"ssh {ssh_common_options} -p {port} {user_name}@{hostname}\n"
   msg += "✂️"*24 + "\n"
   msg += "---\n"
-  msg += "If you use VNC:\n"
+  msg += "VNC ile bağlanmak için gerekli olan komut:\n"
   msg += "✂️"*24 + "\n"
   msg += f"ssh {ssh_common_options} -L 5901:localhost:5901 -p {port} {user_name}@{hostname}\n"
   msg += "✂️"*24 + "\n"
@@ -126,20 +126,20 @@ def _setupSSHDMain(ngrok_region, check_gpu_available):
     return (False, "")
 
   print("---")
-  print("Copy&paste your tunnel authtoken from https://dashboard.ngrok.com/auth")
-  print("(You need to sign up for ngrok and login,)")
+  print("https://dashboard.ngrok.com/auth adresindeki Your Authtoken kısmındaki kodu buraya yapıştırın.")
+  print("(ngrok üyeliği gerekmektedir,)")
   #Set your ngrok Authtoken.
   ngrok_token = getpass.getpass()
 
   if not ngrok_region:
-    print("Select your ngrok region:")
-    print("us - United States (Ohio)")
-    print("eu - Europe (Frankfurt)")
-    print("ap - Asia/Pacific (Singapore)")
-    print("au - Australia (Sydney)")
-    print("sa - South America (Sao Paulo)")
-    print("jp - Japan (Tokyo)")
-    print("in - India (Mumbai)")
+    print("SSH Tunnelling için bölge seçin:")
+    print("us - Amerika (Ohio)")
+    print("eu - Avrupa (Frankfurt)")
+    print("ap - Asya/Pasifik (Singapore)")
+    print("au - Avustralya (Sydney)")
+    print("sa - Güney Amerika (Sao Paulo)")
+    print("jp - Japonya (Tokyo)")
+    print("in - Hindistan (Mumbai)")
     ngrok_region = region = input()
 
   return (True, _setupSSHDImpl(ngrok_token, ngrok_region))
@@ -207,7 +207,7 @@ def _setup_nvidia_gl():
 
 def _setupVNC():
   libjpeg_ver = "2.0.3"
-  virtualGL_ver = "2.6.2"
+  virtualGL_ver = "2.6.3"
   turboVNC_ver = "2.2.3"
 
   libjpeg_url = "https://cfhcable.dl.sourceforge.net/project/libjpeg-turbo/{0}/libjpeg-turbo-official_{0}_amd64.deb".format(libjpeg_ver)
@@ -243,8 +243,8 @@ import subprocess, secrets, pathlib
 vnc_passwd = secrets.token_urlsafe()[:8]
 vnc_viewonly_passwd = secrets.token_urlsafe()[:8]
 print("✂️"*24)
-print("VNC password: {}".format(vnc_passwd))
-print("VNC view only password: {}".format(vnc_viewonly_passwd))
+print("VNC yönetici şifresi: {}".format(vnc_passwd))
+print("VNC sadece görüntüleme şifresi: {}".format(vnc_viewonly_passwd))
 print("✂️"*24)
 vncpasswd_input = "{0}\\n{1}".format(vnc_passwd, vnc_viewonly_passwd)
 vnc_user_dir = pathlib.Path.home().joinpath(".vnc")
