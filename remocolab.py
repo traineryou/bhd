@@ -211,7 +211,7 @@ def _setupVNC():
   turboVNC_ver = "2.2.3"
 
   libjpeg_url = "https://svwh.dl.sourceforge.net/project/libjpeg-turbo/{0}/libjpeg-turbo-official_{0}_amd64.deb".format(libjpeg_ver)
-  virtualGL_url = "https://svwh.dl.sourceforge.net/project/virtualgl/{0}/virtualgl_{0}_amd64.deb".format(virtualGL_ver)
+  virtualGL_url = "https://cfhcable.dl.sourceforge.net/project/virtualgl/{0}/virtualgl_{0}_amd64.deb".format(virtualGL_ver)
   turboVNC_url = "https://svwh.dl.sourceforge.net/project/turbovnc/{0}/turbovnc_{0}_amd64.deb".format(turboVNC_ver)
 
   _download(libjpeg_url, "libjpeg-turbo.deb")
