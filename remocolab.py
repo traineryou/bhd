@@ -208,7 +208,7 @@ def _setup_nvidia_gl():
 def _setupVNC():
   libjpeg_ver = "2.0.3"
   virtualGL_ver = "2.6.3"
-  turboVNC_ver = "2.2.3"
+  turboVNC_ver = "2.2.5"
 
   libjpeg_url = "https://cfhcable.dl.sourceforge.net/project/libjpeg-turbo/{0}/libjpeg-turbo-official_{0}_amd64.deb".format(libjpeg_ver)
   virtualGL_url = "https://cfhcable.dl.sourceforge.net/project/virtualgl/{0}/virtualgl_{0}_amd64.deb".format(virtualGL_ver)
