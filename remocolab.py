@@ -170,7 +170,7 @@ def _setup_nvidia_gl():
   subprocess.run(["nvidia-xconfig",
                   "-a",
                   "--allow-empty-initial-configuration",
-                  "--virtual=1920x1200",
+                  "--virtual=1920x1080",
                   "--busid", "PCI:0:4:0"],
                  check = True
                 )
@@ -222,9 +222,12 @@ def _setupVNC():
   apt.debfile.DebPackage("virtualgl.deb", cache).install()
   apt.debfile.DebPackage("turbovnc.deb", cache).install()
 
-  _installPkgs(cache, "xfce4", "xfce4-terminal")
+  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies")
   cache.commit()
-
+  
+  _installPkg(cache, "firefox")
+  cache.commit()
+  
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
   vnc_sec_conf_p.write_text("""\
 no-remote-connections
@@ -265,7 +268,7 @@ subprocess.run(
 (pathlib.Path.home() / ".xscreensaver").write_text("mode: off\\n")
 """)
   r = subprocess.run(
-                    ["su", "-c", "python3 " + str(vncrun_py), "colab"],
+                    ["su", "-c", "python3 " + str(vncrun_py), "bitturk"],
                     check = True,
                     stdout = subprocess.PIPE,
                     universal_newlines = True)
