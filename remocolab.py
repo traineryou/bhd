@@ -127,7 +127,7 @@ def _setupSSHDMain(ngrok_region, check_gpu_available):
 
   print("---")
   print("https://dashboard.ngrok.com/auth adresindeki Your Authtoken kısmındaki kodu buraya yapıştırın.")
-  print("(ngrok üyeliği gerekmektedir,)")
+  print("(Kodu yapıştırdıktan sonra ENTER tuşuna basın. Not : ngrok üyeliği gerekmektedir)")
   #Set your ngrok Authtoken.
   ngrok_token = getpass.getpass()
 
