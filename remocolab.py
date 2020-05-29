@@ -225,7 +225,7 @@ def _setupVNC():
   apt.debfile.DebPackage("virtualgl.deb", cache).install()
   apt.debfile.DebPackage("turbovnc.deb", cache).install()
 
-  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "qbittorrent" )
+  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "qbittorrent", "filezilla" )
   cache.commit()
   
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
@@ -261,7 +261,7 @@ with vnc_user_passwd.open('wb') as f:
     universal_newlines=True)
 vnc_user_passwd.chmod(0o600)
 subprocess.run(
-  ["/opt/TurboVNC/bin/vncserver"]
+  ["/opt/TurboVNC/bin/vncserver", "-geometry 1920x1080"]
 )
 
 #Disable screensaver because no one would want it.
