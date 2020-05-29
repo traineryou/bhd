@@ -224,8 +224,8 @@ def _setupVNC():
 
   _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "qbittorrent" )
   cache.commit()
-  
-    _installPkg(cache, "mediainfo-gui")
+ 
+  _installPkg(cache, "mediainfo-gui")
   cache.commit()
    
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
