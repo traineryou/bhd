@@ -222,18 +222,12 @@ def _setupVNC():
   apt.debfile.DebPackage("virtualgl.deb", cache).install()
   apt.debfile.DebPackage("turbovnc.deb", cache).install()
 
-  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies")
+  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "qbittorrent" )
   cache.commit()
   
-  _installPkg(cache, "firefox")
+    _installPkg(cache, "mediainfo-gui")
   cache.commit()
-  
-    _installPkg(cache, "mediainfo")
-  cache.commit()
-  
-      _installPkg(cache, "qbittorrent")
-  cache.commit()
-  
+   
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
   vnc_sec_conf_p.write_text("""\
 no-remote-connections
