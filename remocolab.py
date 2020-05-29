@@ -82,7 +82,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
 
   root_password = secrets.token_urlsafe()
   user_password = secrets.token_urlsafe()
-  user_name = "bitturk"
+  user_name = "btrg"
   msg += "✂️"*24 + "\n"
   msg += f"root şifresi: {root_password}\n"
   msg += f"{user_name} şifresi: {user_password}\n"
@@ -268,7 +268,7 @@ subprocess.run(
 (pathlib.Path.home() / ".xscreensaver").write_text("mode: off\\n")
 """)
   r = subprocess.run(
-                    ["su", "-c", "python3 " + str(vncrun_py), "bitturk"],
+                    ["su", "-c", "python3 " + str(vncrun_py), "btrg"],
                     check = True,
                     stdout = subprocess.PIPE,
                     universal_newlines = True)
