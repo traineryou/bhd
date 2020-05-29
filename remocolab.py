@@ -228,6 +228,12 @@ def _setupVNC():
   _installPkg(cache, "firefox")
   cache.commit()
   
+    _installPkg(cache, "mediainfo")
+  cache.commit()
+  
+      _installPkg(cache, "qbittorrent")
+  cache.commit()
+  
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
   vnc_sec_conf_p.write_text("""\
 no-remote-connections
@@ -268,7 +274,7 @@ subprocess.run(
 (pathlib.Path.home() / ".xscreensaver").write_text("mode: off\\n")
 """)
   r = subprocess.run(
-                    ["su", "-c", "python3 " + str(vncrun_py), user_name],
+                    ["su", "-c", "python3 " + str(vncrun_py), "bitturk"],
                     check = True,
                     stdout = subprocess.PIPE,
                     universal_newlines = True)
