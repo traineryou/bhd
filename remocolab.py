@@ -55,6 +55,9 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
 
   _installPkg(cache, "openssh-server")
   cache.commit()
+  
+  _installPkg(cache, "mediainfo-gui")
+  cache.commit()
 
   #Reset host keys
   for i in pathlib.Path("/etc/ssh").glob("ssh_host_*_key"):
@@ -82,7 +85,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
 
   root_password = secrets.token_urlsafe()
   user_password = secrets.token_urlsafe()
-  user_name = "btrg"
+  user_name = "bitturk"
   msg += "✂️"*24 + "\n"
   msg += f"root şifresi: {root_password}\n"
   msg += f"{user_name} şifresi: {user_password}\n"
@@ -224,10 +227,7 @@ def _setupVNC():
 
   _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "qbittorrent" )
   cache.commit()
- 
-  _installPkg(cache, "mediainfo-gui")
-  cache.commit()
-   
+  
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
   vnc_sec_conf_p.write_text("""\
 no-remote-connections
@@ -268,7 +268,7 @@ subprocess.run(
 (pathlib.Path.home() / ".xscreensaver").write_text("mode: off\\n")
 """)
   r = subprocess.run(
-                    ["su", "-c", "python3 " + str(vncrun_py), "btrg"],
+                    ["su", "-c", "python3 " + str(vncrun_py), "bitturk"],
                     check = True,
                     stdout = subprocess.PIPE,
                     universal_newlines = True)
