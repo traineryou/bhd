@@ -261,14 +261,14 @@ with vnc_user_passwd.open('wb') as f:
     universal_newlines=True)
 vnc_user_passwd.chmod(0o600)
 subprocess.run(
-  ["/opt/TurboVNC/bin/vncserver"]
+  ["/opt/TurboVNC/bin/vncserver -geometry 1920 x 1080"]
 )
 
 #Disable screensaver because no one would want it.
 (pathlib.Path.home() / ".xscreensaver").write_text("mode: off\\n")
 """)
   r = subprocess.run(
-                    ["su", "-c", "python3 " + str(vncrun_py), "bitturk"],
+                    ["su", "-c", "python3 " + str(vncrun_py), user_name],
                     check = True,
                     stdout = subprocess.PIPE,
                     universal_newlines = True)
