@@ -2,6 +2,7 @@ import apt, apt.debfile
 import pathlib, stat, shutil, urllib.request, subprocess, getpass, time, tempfile
 import secrets, json, re
 import IPython.utils.io
+import os
 
 def _installPkg(cache, name):
   pkg = cache[name]
@@ -58,15 +59,12 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   
   with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
     f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
-   
-  subprocess.run(["wget", "-q", "-O", "-", "https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt", "|", "apt-key", "add", "-", "|", "apt", "install", "mkvtoolnix", "mkvtoolnix-gui"])
- 
-  subprocess.run(["apt-get", "update"])
 
-  subprocess.run(["wget", "-q", "-O", "-", "https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt", "|", "sudo", "apt-key", "add", "-"])
-  with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
-    f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
-    
+  
+  os.system(f"""wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | sudo apt-key add -""")
+  os.system(f"""apt install mkvtoolnix mkvtoolnix-gui""")  
+  
+ 
   subprocess.run(["apt-get", "update"])
   
   _installPkg(cache, "openssh-server")
