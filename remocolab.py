@@ -63,7 +63,10 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
    
   os.system(f"""wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | sudo apt-key add - | sudo apt update | sudo apt install mkvtoolnix mkvtoolnix-gui""") 
   
- 
+  with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
+    f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
+
+   
   subprocess.run(["apt", "update"])
   
   _installPkg(cache, "openssh-server")
