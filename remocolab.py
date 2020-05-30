@@ -3,9 +3,6 @@ import pathlib, stat, shutil, urllib.request, subprocess, getpass, time, tempfil
 import secrets, json, re
 import IPython.utils.io
 
-subprocess.run(["add-apt-repository", "ppa:stebbins/handbrake-git-snapshots"])
-subprocess.run(["apt-get", "update"])
-
 def _installPkg(cache, name):
   pkg = cache[name]
   if pkg.is_installed:
@@ -55,6 +52,9 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   cache.commit()
 
   subprocess.run(["unminimize"], input = "y\n", check = True, universal_newlines = True)
+  
+  subprocess.run(["add-apt-repository", "ppa:stebbins/handbrake-git-snapshots"])
+  subprocess.run(["apt-get", "update"])
 
   _installPkg(cache, "openssh-server")
   cache.commit()
@@ -62,11 +62,6 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   _installPkg(cache, "mediainfo-gui")
   cache.commit()
   
-   _installPkg(cache, "handbrake-cli")
-  cache.commit()
-  
-    _installPkg(cache, "handbrake-gtk")
-  cache.commit()
   
   #Reset host keys
   for i in pathlib.Path("/etc/ssh").glob("ssh_host_*_key"):
@@ -234,7 +229,7 @@ def _setupVNC():
   apt.debfile.DebPackage("virtualgl.deb", cache).install()
   apt.debfile.DebPackage("turbovnc.deb", cache).install()
 
-  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "qbittorrent", "filezilla")
+  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "qbittorrent", "filezilla", "handbrake-gtk", "handbrake-cli" )
   cache.commit()
   
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
