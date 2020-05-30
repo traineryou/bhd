@@ -3,6 +3,9 @@ import pathlib, stat, shutil, urllib.request, subprocess, getpass, time, tempfil
 import secrets, json, re
 import IPython.utils.io
 
+subprocess.run(["add-apt-repository", "ppa:stebbins/handbrake-git-snapshots"])
+subprocess.run(["apt-get", "update"])
+
 def _installPkg(cache, name):
   pkg = cache[name]
   if pkg.is_installed:
@@ -58,7 +61,13 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   
   _installPkg(cache, "mediainfo-gui")
   cache.commit()
-
+  
+   _installPkg(cache, "handbrake-cli")
+  cache.commit()
+  
+    _installPkg(cache, "handbrake-gtk")
+  cache.commit()
+  
   #Reset host keys
   for i in pathlib.Path("/etc/ssh").glob("ssh_host_*_key"):
     i.unlink()
