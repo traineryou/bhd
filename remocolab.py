@@ -42,8 +42,6 @@ def _check_gpu_available():
 
   return IPython.utils.io.ask_yes_no("Devam etmek istiyor musunuz? [y/n]")
 
-  subprocess.run(["apt", "install", "mkvtoolnix", "mkvtoolnix-gui"])
-
 def _setupSSHDImpl(ngrok_token, ngrok_region):
   #apt-get update
   #apt-get upgrade
@@ -57,18 +55,17 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   
   subprocess.run(["add-apt-repository", "ppa:stebbins/handbrake-git-snapshots"])
   subprocess.run(["apt-get", "update"])
-  
+  subprocess.run(["wget", "-q", "-O", "-", "https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt", "|", "sudo", "apt-key", "add", "-"])
   with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
     f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
     
-  subprocess.run(["wget", "-q", "-O", "-", "https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt", "|", "sudo", "apt-key", "add", "-"])
   subprocess.run(["apt-get", "update"])
   cache = apt.Cache()
   cache.update()
   cache.open(None)
   cache.upgrade()
   cache.commit()
-
+  subprocess.run(["apt", "install", "mkvtoolnix", "mkvtoolnix-gui"])
   
   _installPkg(cache, "openssh-server")
   cache.commit()
