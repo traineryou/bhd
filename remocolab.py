@@ -55,6 +55,8 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   
   subprocess.run(["add-apt-repository", "ppa:stebbins/handbrake-git-snapshots"])
   subprocess.run(["apt-get", "update"])
+  subprocess.run(["echo", "'deb https://mkvtoolnix.download/ubuntu/ bionic main'", "|", "sudo", "tee", "-a", "/etc/apt/sources.list.d/mkvtoolnix.download.list"], check = True)
+  subprocess.run(["echo", "'deb-src https://mkvtoolnix.download/ubuntu/ bionic main'", "|", "sudo", "tee", "-a", "/etc/apt/sources.list.d/mkvtoolnix.download.list"], check = True)
 
   _installPkg(cache, "openssh-server")
   cache.commit()
