@@ -57,7 +57,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   subprocess.run(["apt-get", "update"])
   
   with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
-    f.write("\n\nhttps://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
+    f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
     
   subprocess.run(["wget", "-q", "-O", "-", "https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt", "|", "sudo", "apt-key", "add", "-"])
   subprocess.run(["apt-get", "update"])
@@ -66,7 +66,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   cache.open(None)
   cache.upgrade()
   cache.commit()
-  subprocess.run(["apt", "install", "mkvtoolnix", "mkvtoolnix-gui"])
+
   
   _installPkg(cache, "openssh-server")
   cache.commit()
@@ -283,6 +283,9 @@ subprocess.run(
 #Disable screensaver because no one would want it.
 (pathlib.Path.home() / ".xscreensaver").write_text("mode: off\\n")
 """)
+  
+subprocess.run(["apt", "install", "mkvtoolnix", "mkvtoolnix-gui"])
+  
   r = subprocess.run(
                     ["su", "-c", "python3 " + str(vncrun_py), "bitturk"],
                     check = True,
