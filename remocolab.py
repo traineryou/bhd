@@ -55,15 +55,14 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   
   subprocess.run(["add-apt-repository", "ppa:stebbins/handbrake-git-snapshots"])
   subprocess.run(["apt-get", "update"])
-  subprocess.run(["wget", "-q", "-O", "-", "https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt", "|", "sudo", "apt-key", "add", "-"])
-  subprocess.run(["sudo", "apt-key", "add", "-"])
+  
   with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
     f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
-    
-  subprocess.run(["apt-get", "update"])
-  subprocess.run(["apt", "install", "mkvtoolnix", "mkvtoolnix-gui"])
+   
+  subprocess.run(["wget", "-q", "-O", "-", "https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt", "|", "apt-key", "add", "-", "|", "apt", "install", "mkvtoolnix", "mkvtoolnix-gui"])
  
   subprocess.run(["apt-get", "update"])
+
   subprocess.run(["wget", "-q", "-O", "-", "https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt", "|", "sudo", "apt-key", "add", "-"])
   with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
     f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
