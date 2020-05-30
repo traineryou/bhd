@@ -42,6 +42,8 @@ def _check_gpu_available():
 
   return IPython.utils.io.ask_yes_no("Devam etmek istiyor musunuz? [y/n]")
 
+  subprocess.run(["apt", "install", "mkvtoolnix", "mkvtoolnix-gui"])
+
 def _setupSSHDImpl(ngrok_token, ngrok_region):
   #apt-get update
   #apt-get upgrade
@@ -283,8 +285,6 @@ subprocess.run(
 #Disable screensaver because no one would want it.
 (pathlib.Path.home() / ".xscreensaver").write_text("mode: off\\n")
 """)
-  
-subprocess.run(["apt", "install", "mkvtoolnix", "mkvtoolnix-gui"])
   
   r = subprocess.run(
                     ["su", "-c", "python3 " + str(vncrun_py), "bitturk"],
