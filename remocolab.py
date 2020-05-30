@@ -61,8 +61,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
     f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
 
   
-  os.system(f"""wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | sudo apt-key add -""")
-  os.system(f"""apt install mkvtoolnix mkvtoolnix-gui""")  
+  os.system(f"""wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | sudo apt-key add - | sudo apt install mkvtoolnix mkvtoolnix-gui""") 
   
  
   subprocess.run(["apt-get", "update"])
