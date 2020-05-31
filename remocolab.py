@@ -269,7 +269,7 @@ with vnc_user_passwd.open('wb') as f:
     universal_newlines=True)
 vnc_user_passwd.chmod(0o600)
 subprocess.run(
-  ["/opt/TurboVNC/bin/vncserver", "-geometry", "1280x1024"]
+  ["/opt/TurboVNC/bin/vncserver"]
 )
 
 #Disable screensaver because no one would want it.
