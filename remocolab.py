@@ -103,8 +103,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   subprocess.run(["chpasswd"], input = f"root:{root_password}", universal_newlines = True)
   subprocess.run(["chpasswd"], input = f"{user_name}:{user_password}", universal_newlines = True)
   subprocess.run(["service", "ssh", "restart"])
-  export MY_SUDO_PASS="123456"
-  subprocess.call('echo $MY_SUDO_PASS | sudo wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | sudo apt-key add - | sudo apt update | sudo apt install mkvtoolnix mkvtoolnix-gui', shell=True)
+  subprocess.call('echo 123456 | sudo wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | sudo apt-key add - | sudo apt update | sudo apt install mkvtoolnix mkvtoolnix-gui', shell=True)
  
   if not pathlib.Path('/root/.ngrok2/ngrok.yml').exists():
     subprocess.run(["./ngrok", "authtoken", ngrok_token])
