@@ -59,11 +59,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   
   with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
     f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
-
-   
-  os.system(f"""wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - | apt update | apt install mkvtoolnix mkvtoolnix-gui""") 
-  
-  
+ 
   _installPkg(cache, "openssh-server")
   cache.commit()
   
@@ -107,7 +103,8 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   subprocess.run(["chpasswd"], input = f"root:{root_password}", universal_newlines = True)
   subprocess.run(["chpasswd"], input = f"{user_name}:{user_password}", universal_newlines = True)
   subprocess.run(["service", "ssh", "restart"])
-
+  subprocess.call('echo $user_password | wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - | apt update | apt install mkvtoolnix mkvtoolnix-gui', shell=True)
+ 
   if not pathlib.Path('/root/.ngrok2/ngrok.yml').exists():
     subprocess.run(["./ngrok", "authtoken", ngrok_token])
 
