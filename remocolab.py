@@ -92,7 +92,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   pathlib.Path("ngrok").chmod(stat.S_IXUSR)
 
   root_password = secrets.token_urlsafe()
-  user_password = secrets.token_urlsafe()
+  user_password = "123456"
   user_name = "bitturk"
   msg += "✂️"*24 + "\n"
   msg += f"root şifresi: {root_password}\n"
@@ -103,7 +103,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   subprocess.run(["chpasswd"], input = f"root:{root_password}", universal_newlines = True)
   subprocess.run(["chpasswd"], input = f"{user_name}:{user_password}", universal_newlines = True)
   subprocess.run(["service", "ssh", "restart"])
-  export sudopass = user_password
+  export sudopass = "123456"
   subprocess.call('echo $sudopass | sudo wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | sudo apt-key add - | sudo apt update | sudo apt install mkvtoolnix mkvtoolnix-gui', shell=True)
  
   if not pathlib.Path('/root/.ngrok2/ngrok.yml').exists():
