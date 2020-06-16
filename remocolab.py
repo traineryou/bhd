@@ -55,7 +55,10 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   subprocess.run(["unminimize"], input = "y\n", check = True, universal_newlines = True)
   
   subprocess.run(["add-apt-repository", "ppa:stebbins/handbrake-git-snapshots"])
-  subprocess.run(["apt", "update"])
+  subprocess.run(["add-apt-repository", "ppa:qbittorrent-team/qbittorrent-stable"])
+  subprocess.run(["apt-get", "update"])
+  subprocess.run(["apt-get", "install","qbittorrent" ])
+
   
   with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
     f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
@@ -233,7 +236,7 @@ def _setupVNC():
   apt.debfile.DebPackage("virtualgl.deb", cache).install()
   apt.debfile.DebPackage("turbovnc.deb", cache).install()
 
-  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "qbittorrent", "filezilla", "handbrake-gtk", "handbrake-cli" )
+  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "filezilla", "handbrake-gtk", "handbrake-cli" )
   cache.commit()
   
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
