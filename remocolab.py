@@ -220,7 +220,7 @@ def _setup_nvidia_gl():
   subprocess.Popen(["Xorg", "-seat", "seat-1", "-allowMouseOpenFail", "-novtswitch", "-nolisten", "tcp"])
 
 def _setupVNC():
-  libjpeg_ver = "2.0.3"
+  libjpeg_ver = "2.0.4"
   virtualGL_ver = "2.6.3"
   turboVNC_ver = "2.2.5"
 
