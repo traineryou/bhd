@@ -236,7 +236,11 @@ def _setupVNC():
   apt.debfile.DebPackage("virtualgl.deb", cache).install()
   apt.debfile.DebPackage("turbovnc.deb", cache).install()
 
-  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "filezilla", "handbrake-gtk", "handbrake-cli" )
+  
+  
+  #, "handbrake-gtk", "handbrake-cli"  ----- handbrake i yüklemek için.
+    
+  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "filezilla" )
   cache.commit()
   
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
