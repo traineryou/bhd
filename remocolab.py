@@ -54,21 +54,14 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
 
   subprocess.run(["unminimize"], input = "y\n", check = True, universal_newlines = True)
   
-  subprocess.run(["add-apt-repository", "ppa:stebbins/handbrake-git-snapshots"])
   subprocess.run(["add-apt-repository", "ppa:qbittorrent-team/qbittorrent-stable"])
   subprocess.run(["apt-get", "update"])
   subprocess.run(["apt-get", "install","qbittorrent" ])
 
   
-  with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
-    f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
- 
   _installPkg(cache, "openssh-server")
   cache.commit()
-  
-  _installPkg(cache, "mediainfo-gui")
-  cache.commit()
-  
+ 
   
   #Reset host keys
   for i in pathlib.Path("/etc/ssh").glob("ssh_host_*_key"):
@@ -240,7 +233,7 @@ def _setupVNC():
   
   #, "handbrake-gtk", "handbrake-cli"  ----- handbrake i yüklemek için.
     
-  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "filezilla" )
+  _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox" )
   cache.commit()
   
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
