@@ -59,7 +59,7 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   subprocess.run(["add-apt-repository", "ppa:cybermax-dexter/sdl2-backport"])
   subprocess.run(["apt-get", "update"])
   subprocess.run(["apt-get", "install","qbittorrent" ])
-  subprocess.run(["dpkg", "--add-architecture", "i386", "sudo"], check = True)
+  subprocess.run(["dpkg", "--add-architecture", "i386", "sudo"])
 
 
   with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
