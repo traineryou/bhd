@@ -63,11 +63,11 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
 
 
   with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
-    f.write("\n\nalias eac3to='wine ~/eac3to/eac3to.exe 2>/dev/null'\nalias eacout='wine ~/eac3to/eac3to.exe 2>/dev/null | tr -cd \11\12\15\40-\176'\n")
+    f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
   
   
   with open(".bashrc", "a") as f:
-    f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
+    f.write("\n\nalias eac3to='wine ~/eac3to/eac3to.exe 2>/dev/null'\nalias eacout='wine ~/eac3to/eac3to.exe 2>/dev/null | tr -cd \11\12\15\40-\176'\n")
     
     
   _installPkg(cache, "openssh-server")
