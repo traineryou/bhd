@@ -55,12 +55,21 @@ def _setupSSHDImpl(ngrok_token, ngrok_region):
   subprocess.run(["unminimize"], input = "y\n", check = True, universal_newlines = True)
   
   subprocess.run(["add-apt-repository", "ppa:qbittorrent-team/qbittorrent-stable"])
+  subprocess.run(["add-apt-repository", "deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main"])
+  subprocess.run(["add-apt-repository", "ppa:cybermax-dexter/sdl2-backport"])
   subprocess.run(["apt-get", "update"])
   subprocess.run(["apt-get", "install","qbittorrent" ])
+  subprocess.run(["dpkg", "--add-architecture", "i386", "sudo"], check = True)
+
 
   with open("/etc/apt/sources.list.d/mkvtoolnix.download.list", "a") as f:
-    f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
+    f.write("\n\nalias eac3to='wine ~/eac3to/eac3to.exe 2>/dev/null'\nalias eacout='wine ~/eac3to/eac3to.exe 2>/dev/null | tr -cd "\11\12\15\40-\176"'\n")
   
+  
+  with open(".bashrc", "a") as f:
+    f.write("\n\ndeb https://mkvtoolnix.download/ubuntu/ bionic main\ndeb-src https://mkvtoolnix.download/ubuntu/ bionic main\n")
+    
+    
   _installPkg(cache, "openssh-server")
   cache.commit()
   
@@ -240,6 +249,10 @@ def _setupVNC():
     
   _installPkgs(cache, "xfce4", "xfce4-terminal" , "xfce4-goodies", "firefox", "filezilla" )
   cache.commit()
+  
+  
+  subprocess.run(["apt-get", "install","winehq-stable","--install-recommends" ])  
+  subprocess.run(["apt-get", "install","winetricks" ])
   
   vnc_sec_conf_p = pathlib.Path("/etc/turbovncserver-security.conf")
   vnc_sec_conf_p.write_text("""\
